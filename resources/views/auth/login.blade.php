@@ -59,7 +59,7 @@ a {
 
 </style>
 <div class="container">
-<form method="POST" action="{{ route('login') }}">
+<form method="POST" action="">
     @csrf
   <div class="container">
     <br><br><br>
@@ -89,7 +89,7 @@ a {
   <br><br>
     <button type="submit"  class="registerbtn">Login</button>
     <br>
-    <a href="{{route('login.facebook')}}" class="fab fa-facebook registerbtn"> Login with facebook </a>
+    <a href="{{ $login_url }}" class="fab fa-facebook registerbtn"> Login with facebook </a>
   </div>
 </form>
     </div>

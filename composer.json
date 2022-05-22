@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2|^8.0",
+        "facebook/graph-sdk": "^5.7",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^7.3",
@@ -62,20 +63,3 @@
         ]
     }
 }
-
-
-curl -X POST http://api.fems.education/api/v1/auth/login -H 'Origin: http://ems.ois.edu.bd' -d 'user_username=2001150065' -d 'password=Aa@12345' 
-
-Hi Jen,
-
-Thanks for accepting my invitation. I am delighted to connect with you. I would like you to let me know if there’s anything I can do to assist you. giopio.com is serving as a web development agecny. We are working in php/laravel, Javascript/reactjs/nodejs and wordpress development. We do figma to html conversion also.
-
-We have some ready product for social media, like Schedule post and feed. 
-
-Can we talk this week or next week to go through our collaboration proposal?
-
-Looking forward to being in touch with you.
-
-Kind regards,
-
-Jakarea

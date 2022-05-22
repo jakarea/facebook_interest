@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Auth\FacebookController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +19,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes(['verify' => true]);
+// Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/user/logout', 'HomeController@logout')->name('user.logout');
@@ -28,6 +30,9 @@ Route::get('/user/logout', 'HomeController@logout')->name('user.logout');
 //Route::get('postinsert', 'SearchController@searchuser');
 Route::post('postinsert', 'SearchController@searchuser');
 
-// Socialite
-Route::get('login/facebook', 'Auth\LoginController@redirectToFacebook')->name('login.facebook');
-Route::get('login/facebook/callback', 'Auth\LoginController@handleFacebookCallback');
+//Facebook Authentication
+Route::prefix('facebook')->name('facebook.')->group(function(){
+    Route::get('/login',[FacebookController::class,'login'])->name('login');
+    Route::get('/accessToken',[FacebookController::class,'generateAccessToken']);
+    Route::get('/logout',[FacebookController::class,'facebookLogout']);
+});

@@ -9,11 +9,11 @@
     <title>FB Ad Keyword Search</title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <link rel="stylesheet" href="{{asset('assets/style.css?var=1.5')}}">
+    <link rel="stylesheet" href="{{asset('public/assets/style.css?var=1.5')}}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
         integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
-
-        
+         <!--toastr notification css-->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 </head>
 <body>
 @guest
@@ -21,8 +21,8 @@
         <div class="header-container">
         <div class="logo"><h1><a href="{{route('home')}}"><span>Interest</span> Hacker</a></h1></div>
         <ul>
-           <li><a href="{{ route('login') }}" class="theme-btn"> Login</a></li>
-            <li><a href="{{ route('register') }}" class="theme-btn"> Register</a></li>
+           <li><a href="{{ route('facebook.login') }}" class="theme-btn"> Login</a></li>
+            <li><a href="" class="theme-btn"> Register</a></li>
         </ul>
         </div>
     </header>
@@ -67,6 +67,40 @@
     
     
     @stack('js')
+
+ <!-----------------js for toastr notification----------------->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+@if(Session::has('success'))
+<script>
+  toastr.options.closeButton = true;
+  toastr.options.progressBar = true;
+  toastr.success('{{ Session::get('success') }}', 'Success')
+</script>
+@endif
+@if(Session::has('error'))
+<script>
+  toastr.options.closeButton = true;
+  toastr.options.progressBar = true;
+  toastr.error('{{ Session::get('error') }}', 'Error')
+</script>
+@endif
+@if(Session::has('info'))
+<script>
+  toastr.options.closeButton = true;
+  toastr.options.progressBar = true;
+  toastr.info('{{ Session::get('info') }}', 'Info')
+</script>
+@endif
+@if(Session::has('warning'))
+<script>
+  toastr.options.closeButton = true;
+  toastr.options.progressBar = true;
+  toastr.warning('{{ Session::get('warning') }}', 'Warning')
+</script>
+@endif
+<!-----------------//----------------->
+ 
 </body>
 
 </html>
