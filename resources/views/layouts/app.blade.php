@@ -20,10 +20,10 @@
     <header>
         <div class="header-container">
         <div class="logo"><h1><a href="{{route('home')}}"><span>Interest</span> Hacker</a></h1></div>
-        <ul>
+        <!-- <ul>
            <li><a href="{{ route('facebook.login') }}" class="theme-btn"> Login</a></li>
             <li><a href="" class="theme-btn"> Register</a></li>
-        </ul>
+        </ul> -->
         </div>
     </header>
 @else 

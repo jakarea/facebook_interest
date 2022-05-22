@@ -24,6 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $login_url = 'adsf';
         return view('home');
     }
 

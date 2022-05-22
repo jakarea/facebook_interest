@@ -27,8 +27,8 @@
             <p> Recent search:<span id="recentSearch"></span></p>
         </div>
       @else 
-        <div style="text-align: center; color: white;background-color: #7c3aed; width: 50%; margin:0 auto; border-radius: 50%;">
-          <h1>Login First </h1> 
+        <div style="text-align: center; color: white;background-color: #7c3aed; width: 50%; margin:0 auto; border-radius: 5px;">
+        <a href="{{ $login_url }}" class="fab fa-facebook registerbtn"> Login with facebook </a>
         </div>
        
       @endif   
