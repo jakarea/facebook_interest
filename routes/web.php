@@ -25,9 +25,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/user/logout', 'HomeController@logout')->name('user.logout');
 
 // serach
-// Route::get('/search/user/', 'SearchController@searchuser')->name('search.user');
+Route::get('/search/user/', 'SearchController@searchuser')->name('search.user');
 
-//Route::get('postinsert', 'SearchController@searchuser');
+Route::get('postinsert', 'SearchController@searchuser');
 Route::post('postinsert', 'SearchController@searchuser');
 
 //Facebook Authentication
