@@ -132,6 +132,9 @@ class FacebookController extends Controller
         $data['access_token'] = $access_token;
         $user = User::updateOrCreate(['email' => $response['email']], $data);
 
+
+        Auth::login($user);
+
         return redirect('/')->with('success','Login Successfull');
     }
 

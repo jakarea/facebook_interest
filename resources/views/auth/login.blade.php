@@ -89,7 +89,7 @@ a {
   <br><br>
     <button type="submit"  class="registerbtn">Login</button>
     <br>
-    <a href="{{ $login_url }}" class="fab fa-facebook registerbtn"> Login with facebook </a>
+    <a href="" class="fab fa-facebook registerbtn"> Login with facebook </a>
   </div>
 </form>
     </div>

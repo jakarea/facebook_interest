@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\FacebookController;
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,9 +16,10 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [WelcomeController::class,'welcome']);
+Route::get('/login',function(){
+    return view('auth.login');
+})->name('login');
 
 // Auth::routes(['verify' => true]);
 
