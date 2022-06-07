@@ -63,7 +63,13 @@ class FacebookController extends Controller
         //get permission from facebook
         $permissions = [
             'email',
-            'public_profile'
+            'public_profile',
+            'pages_manage_posts',
+            'pages_read_engagement',
+            'pages_show_list',
+            'pages_manage_metadata',
+            'ads_read',
+            
         ];
 
         $facebook_login_url = $this->helper->getLoginUrl(env('FACEBOOK_REDIRECT_URI'), $permissions);

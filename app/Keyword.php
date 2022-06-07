@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Keyword extends Model
 {
-    protected $fillable = ['keyword','language','type', 'hit','user_id'];
+    protected $fillable = ['keyword', 'lang', 'hit', 'user_id'];
 }

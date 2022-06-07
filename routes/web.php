@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', [WelcomeController::class,'welcome']);
-Route::get('/login',function(){
+Route::get('/', [WelcomeController::class, 'welcome']);
+Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
 
@@ -27,14 +27,14 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/user/logout', 'HomeController@logout')->name('user.logout');
 
 // serach
-Route::get('/search/user/', 'SearchController@searchuser')->name('search.user');
+Route::get('/', 'SearchController@searchuser')->name('search.user');
 
 Route::get('postinsert', 'SearchController@searchuser');
 Route::post('postinsert', 'SearchController@searchuser');
 
 //Facebook Authentication
-Route::prefix('facebook')->name('facebook.')->group(function(){
-    Route::get('/login',[FacebookController::class,'login'])->name('login');
-    Route::get('/accessToken',[FacebookController::class,'generateAccessToken']);
-    Route::get('/logout',[FacebookController::class,'facebookLogout']);
+Route::prefix('facebook')->name('facebook.')->group(function () {
+    Route::get('/login', [FacebookController::class, 'login'])->name('login');
+    Route::get('/accessToken', [FacebookController::class, 'generateAccessToken']);
+    Route::get('/logout', [FacebookController::class, 'facebookLogout']);
 });
