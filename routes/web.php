@@ -16,9 +16,9 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', [WelcomeController::class, 'welcome']);
-Route::get('/login', function () {
-    return view('auth.login');
+Route::get('/login', function (FacebookController $facebook) {
+    $login_url =  $facebook->facebookConnect();
+    return view('auth.login', compact('login_url'));
 })->name('login');
 
 // Auth::routes(['verify' => true]);

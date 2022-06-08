@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Auth\FacebookController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
@@ -12,9 +13,12 @@ use Illuminate\Support\Facades\Http;
 class SearchController extends Controller
 {
 
-    public function __construct()
+
+    public $facebook;
+    public function __construct(FacebookController $facebook)
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
+        $this->facebook = $facebook;
     }
 
 
@@ -57,7 +61,9 @@ class SearchController extends Controller
             $search_data = Http::get($api_url);
         }
 
-        return view('welcome', compact('search_data'));
+
+        $login_url = $this->facebook->facebookConnect();
+        return view('welcome', compact('search_data','login_url'));
     }
 
     public function ajaxRequestPost(Request $request)

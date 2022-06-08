@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
 <div class="container">
     <div class="search-area">
@@ -7,8 +6,6 @@
         <h3 class="sub-heading">Search For Hidden Facebook Interest!</h3>
         @if(Auth::check())
         <form id="searchForm" action="{{route('search.user')}}" method="GET">
-            @csrf
-
             <input type="text" placeholder="Search Keyword" name="keyword" class="keyword-search" required>
             <input type="hidden" name="language" value="en" class="language_code">
             <div class="lang-wrapper">
@@ -23,11 +20,12 @@
             <button type="submit" class="search-btn">Search</button>
 
         </form>
-        <div class="text-center" style="">
-            <p> Recent search:<span id="recentSearch">0</span></p>
-        </div>
+
 
         @if(isset($search_data))
+        <div class="text-center" style="">
+            <p> Recent search:<span id="recentSearch"> {{ $search_data['data'][0]['name'] }}</span></p>
+        </div>
         <div class="active-search">
             <div class="main-selection-box">
             </div>
@@ -38,13 +36,13 @@
             <br />
             <div class="search-results">
                 <h3 class="totalResults">
-                    Total Results:<span class="num-results"> {{ count($search_data['data']) }}</span>
+                    Total Results:<span> {{ count($search_data['data']) }}</span>
                 </h3>
 
                 <table class="content-table">
                     <thead>
                         <tr>
-                            <th><input type="checkbox" id="main-checkbox" name="selectAll" onclick="toggle(this)" value="" label="check" class="checked">
+                            <th><input type="checkbox" id="main-checkbox" name="selectAll" onclick="toggleAll()" value="" label="check">
                             </th>
                             <th class="name">Name</th>
                             <th class="aud">Audience Size</th>
@@ -56,15 +54,21 @@
                     <tbody>
                         @foreach($search_data['data'] as $data)
                         <tr>
-                            <td><input type="checkbox" id="main-checkbox" name="selectAll" onclick="toggle(this)" value="" label="check" class="checked">
-                            </td>
+
+                            <td><input type="checkbox" id="checkbox" name="checkmark" onclick="toggle(this)" value="{{ $data['name'] }}" class="checked"></td>
                             <td class="name">{{ $data['name'] }}</td>
                             <td class="aud">{{ $data['audience_size_lower_bound'] }}-{{ $data['audience_size_upper_bound'] }}</td>
-                            <td class="aud">{{ $data['description'] ? $data['description']:'null' }}</td>
+                            <td class="aud">
+                                @if(isset($data['topic']))
+
+                                {{ $data['topic'] }}
+
+                                @endif
+                            </td>
                             <td>
                                 <a href="https://www.facebook.com/search/top/?q={{ $data['name'] }}" target="_blank"><i class="fab fa-facebook"></i></a>
                                 <a href="https://www.google.com/search?q={{ $data['name'] }}" target="_blank"><i class="fab fa-google"></i></a>
-                            </td>`
+                            </td>
                             </td>
                         </tr>
                         @endforeach
@@ -107,7 +111,110 @@
 @push('js')
 
 <script>
-    
+    //Trigger with language change
+    const languageBtn = document.querySelector('#languageBtn');
+    const langDropdown = document.querySelector('.lang-dropdown');
+    const langList = document.querySelectorAll('.language-list');
+
+    languageBtn.addEventListener('click', function(event) {
+        event.preventDefault()
+        langDropdown.classList.toggle('toggle-dropdown')
+    })
+
+    for (i = 0; i < langList.length; i++) {
+        langList[i].addEventListener('click', function() {
+
+            const selectedLanguge = this.children[1].innerHTML;
+            const langCode = this.children[1].getAttribute("data-code");
+
+            document.querySelector('.active-lang').innerHTML = selectedLanguge;
+            document.querySelector('.language_code').value = langCode;
+            document.querySelector('.active-flag').setAttribute("src", "public/assets/images/flag/" + langCode + "_24.png");
+            langDropdown.classList.remove('toggle-dropdown');
+
+        });
+    }
+
+    // select single checkbox and insert data into main selection box
+    const mainIntrestBox = document.querySelector('.main-selection-box');
+    const checkboxes = document.getElementsByClassName('checked');
+    const mainCheckbox = document.getElementById('main-checkbox');
+
+    var keyList = []
+
+    function toggle(source) {
+        if (!keyList.includes(source.value)) {
+            keyList.push(source.value);
+        } else {
+            var keyIndex = keyList.indexOf(source.value);
+            keyList.splice(keyIndex, 1);
+        }
+        appendDatatoMainBox(keyList.join(", "));
+    }
+
+    function appendDatatoMainBox(keywords) {
+        mainIntrestBox.innerHTML = keywords
+    }
+
+
+    //select all checkbox at a time and insert into main selection box
+
+    var flag = false
+
+    function toggleAll() {
+        keyList = []
+        if (!flag) {
+            for (var i = 0; i < checkboxes.length; i++) {
+                checkboxes[i].checked = true
+                flag = true
+                keyList.push(checkboxes[i].value)
+            }
+        } else {
+            for (var i = 0; i < checkboxes.length; i++) {
+                var keyIndex = keyList.indexOf(checkboxes[i].value);
+                keyList.splice(keyIndex, 1);
+                checkboxes[i].checked = false
+                flag = false
+            }
+        }
+        appendDatatoMainBox(keyList.join(", "));
+    }
+
+    //clear all selected checkbox
+    let clearBtn = document.querySelector('#clear')
+    clearBtn.addEventListener('click', function() {
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].checked = false
+        }
+        mainCheckbox.checked = false
+        keyList = []
+        appendDatatoMainBox(keyList.join(", "));
+        flag = false
+    })
+
+    // Copy Selection
+    const btnCopy = document.getElementById('copyBtn');
+    btnCopy.addEventListener('click', function(copyAll) {
+        copyAll.preventDefault()
+        const createInput = document.createElement('input');
+        const boxInnerText = mainIntrestBox.innerText;
+        createInput.value = boxInnerText;
+
+        document.body.appendChild(createInput);
+        createInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(createInput)
+        const copiedAlert = document.createElement('div');
+        copiedAlert.classList.add("copied-message");
+        copiedAlert.innerHTML = `<i class="fas fa-check"></i>
+<p>Selection Copied!</p>`;
+        mainIntrestBox.appendChild(copiedAlert)
+
+        setTimeout(function() {
+            mainIntrestBox.removeChild(copiedAlert)
+        }, 2000);
+
+    })
 </script>
 @endpush
 @endsection

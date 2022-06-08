@@ -863,3 +863,7 @@ table.content-table a:hover i {
     color: #7c3aed;
 }
 
+
+.toggle-dropdown{
+  display: block!important;
+}

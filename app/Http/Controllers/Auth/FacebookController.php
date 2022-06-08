@@ -184,6 +184,6 @@ class FacebookController extends Controller
         $user = $this->findUserByAccessToken($access_token);
         $feed_url = 'https://graph.facebook.com/' . $user['id'] . '/permissions?method=delete&access_token=' . $access_token;
         $response =  Http::delete($feed_url);
-        return redirect()->route('facebook.login')->with('error','Please try to login with grent email access!');
+       // return redirect()->route('facebook.login')->with('error','Please try to login with grent email access!');
     }
 }
