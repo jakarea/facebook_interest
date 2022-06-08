@@ -16,8 +16,9 @@ class CreateKeywordsTable extends Migration
         Schema::create('keywords', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->text('query');
-            $table->text('leng')->nullable();
+            $table->text('keyword');
+            $table->text('lang')->nullable();
+            $table->bigInteger('hit')->default(1);
             $table->timestamps();
         });
     }

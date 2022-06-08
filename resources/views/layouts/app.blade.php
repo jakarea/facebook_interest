@@ -29,9 +29,9 @@
 @else 
     <header>
         <div class="header-container">
-        <div class="logo"><h1><a href="{{route('home')}}"><span>Interest</span> Hacker</a></h1></div>
+        <div class="logo"><h1><a href="{{url('/')}}"><span>Interest</span> Hacker</a></h1></div>
         <ul>
-            <li class="active"><a href="{{route('home')}}">Home</a></li>
+            <li class="active"><a href="{{url('/')}}">Home</a></li>
             <li><a href="#"> Donate</a></li>
             <li><a href="#"> How To</a></li>
             <li><a href="#"> Support</a></li>

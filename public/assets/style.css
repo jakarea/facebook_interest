@@ -230,7 +230,7 @@ color: rgba(0,0,0,0.5);
 }
 
 .active-search{
-  display: none;
+  /* display: none; */
 }
 
 .keyword-search {
@@ -863,3 +863,7 @@ table.content-table a:hover i {
     color: #7c3aed;
 }
 
+
+.toggle-dropdown{
+  display: block!important;
+}
