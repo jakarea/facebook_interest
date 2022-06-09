@@ -63,13 +63,8 @@ class FacebookController extends Controller
         //get permission from facebook
         $permissions = [
             'email',
-            'public_profile',
-            'pages_manage_posts',
-            'pages_read_engagement',
-            'pages_show_list',
-            'pages_manage_metadata',
-            'ads_read',
-            
+            'public_profile'
+
         ];
 
         $facebook_login_url = $this->helper->getLoginUrl(env('FACEBOOK_REDIRECT_URI'), $permissions);
@@ -85,6 +80,10 @@ class FacebookController extends Controller
      */
     public function generateAccessToken()
     {
+        if (!isset($_GET['code'])) {
+            return redirect('/');
+        }
+
         if (request('state')) {
             $this->helper->getPersistentDataHandler()->set('state', request('state'));
         }
@@ -105,7 +104,6 @@ class FacebookController extends Controller
                     echo 'Error getting long lived access token ' . $e->getMessage();
                 }
             }
-
 
             $access_token = (string) $accessToken;
             $user_permissions =  $this->checkUserPermission($access_token);
@@ -141,7 +139,7 @@ class FacebookController extends Controller
 
         Auth::login($user);
 
-        return redirect('/')->with('success','Login Successfull');
+        return redirect('/')->with('success', 'Login Successfull');
     }
 
     /**
@@ -184,6 +182,6 @@ class FacebookController extends Controller
         $user = $this->findUserByAccessToken($access_token);
         $feed_url = 'https://graph.facebook.com/' . $user['id'] . '/permissions?method=delete&access_token=' . $access_token;
         $response =  Http::delete($feed_url);
-       // return redirect()->route('facebook.login')->with('error','Please try to login with grent email access!');
+        return redirect('/')->with('error', 'Please try to login with grent email access!');
     }
 }
