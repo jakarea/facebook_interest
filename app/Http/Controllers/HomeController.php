@@ -18,18 +18,6 @@ class HomeController extends Controller
     public function __construct(FacebookController $facebook)
     {
         $this->facebook = $facebook;
-        $this->middleware('auth');
-    }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function index()
-    {
-
-        return view('home');
     }
 
 
@@ -39,9 +27,7 @@ class HomeController extends Controller
      */
     public function logout()
     {
-
         $this->facebook->facebookLogout(Auth::user()->access_token);
-
         Auth::logout();
         return redirect()->to('/');
     }

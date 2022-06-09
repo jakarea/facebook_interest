@@ -255,13 +255,13 @@ form#searchForm input, .search-btn {
   
 }
 
-.selection-btn{
+.buttonToSelect{
   display: flex;
   justify-content: center;
   margin-top: 15px;
 }
 
-.main-selection-box {
+.dataCopyBox {
 position: relative;
     overflow: auto;
     top: 10px;
@@ -310,27 +310,27 @@ position: relative;
 
 
 /* width */
-.main-selection-box::-webkit-scrollbar {
+.dataCopyBox::-webkit-scrollbar {
   width: 8px;
 }
 
 /* Track */
-.main-selection-box::-webkit-scrollbar-track {
+.dataCopyBox::-webkit-scrollbar-track {
   background: #313a63; 
 }
  
 /* Handle */
-.main-selection-box::-webkit-scrollbar-thumb {
+.dataCopyBox::-webkit-scrollbar-thumb {
   background: #7F63F4; 
   border-radius: 20px;
 }
 
 /* Handle on hover */
-.main-selection-box::-webkit-scrollbar-thumb:hover {
+.dataCopyBox::-webkit-scrollbar-thumb:hover {
   background: white; 
 }
 
-.main-selection-box::-webkit-scrollbar-corner {
+.dataCopyBox::-webkit-scrollbar-corner {
   background: none; 
 }
 
@@ -759,7 +759,7 @@ button {
     position: relative;
 }
 
-ul.lang-dropdown {
+ul.langDropdown {
     display: block;
     position: absolute;
     left: 5px;
@@ -777,19 +777,19 @@ ul.lang-dropdown {
     display: none;
 }
 
-ul.lang-dropdown li {
+ul.langDropdown li {
     padding: 6px 10px;
     display: flex;
     white-space: nowrap;
     align-items: center;
 }
 
-ul.lang-dropdown li span {
+ul.langDropdown li span {
     display: inline-block;
     margin-left: 10px;
 }
 
-ul.lang-dropdown li:hover {
+ul.langDropdown li:hover {
     background: #f6f7fa;
     cursor: pointer;
 }
@@ -811,7 +811,7 @@ button.lang-btn {
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
 }
-ul.lang-dropdown.active {
+ul.langDropdown.active {
     display: block;
 }
 button.lang-btn img {
@@ -864,6 +864,6 @@ table.content-table a:hover i {
 }
 
 
-.toggle-dropdown{
+.toggleDropdown{
   display: block!important;
 }
