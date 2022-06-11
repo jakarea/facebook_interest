@@ -111,7 +111,7 @@ class FacebookController extends Controller
                 if ($permission['permission'] == 'email' && $permission['status'] == 'granted') {
                     return $this->storeUser($access_token);
                 } elseif ($permission['permission'] == 'email' && $permission['status'] == 'declined') {
-                    return $this->facebookLogout($access_token);
+                    return $this->instantFacebookLogout($access_token);
                 }
             }
         }
@@ -178,6 +178,15 @@ class FacebookController extends Controller
      * @return Boolean
      */
     public function facebookLogout($access_token)
+    {
+        $user = $this->findUserByAccessToken($access_token);
+        $feed_url = 'https://graph.facebook.com/' . $user['id'] . '/permissions?method=delete&access_token=' . $access_token;
+        $response =  Http::delete($feed_url);
+        return redirect('/');
+    }
+
+
+    public function instantFacebookLogout($access_token)
     {
         $user = $this->findUserByAccessToken($access_token);
         $feed_url = 'https://graph.facebook.com/' . $user['id'] . '/permissions?method=delete&access_token=' . $access_token;

@@ -16,3 +16,7 @@ Route::prefix('facebook')->name('facebook.')->group(function () {
 });
 
 Route::get('/user/logout', 'HomeController@logout')->name('user.logout');
+
+Route::get('/contact',function(){
+    return view('contact');
+});
